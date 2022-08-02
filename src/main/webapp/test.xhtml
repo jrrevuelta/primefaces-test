@@ -29,7 +29,7 @@
                 forceSelection="true">
               <p:ajax event="itemSelect" listener="#{search.selectPaciente}"/>
             </p:autoComplete>
-            <p:commandButton value="Go" action="#{search.showPacienteSelected}"/>
+            <p:commandButton value="Go" action="#{search.showPacienteSelected}" process="@form"/>
           </div>
         </h:form>
 
