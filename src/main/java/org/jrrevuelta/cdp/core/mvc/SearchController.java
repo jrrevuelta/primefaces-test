@@ -1,14 +1,11 @@
 package org.jrrevuelta.cdp.core.mvc;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.NavigationHandler;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,10 +20,6 @@ public class SearchController implements Serializable {
 	
 	private Paciente selectedPaciente;
 	private List<Paciente> pacientesList;
-
-	// JRR: This was done to try only String content in the autoComplete tag
-	private String selectedPacienteString;
-	private List<String> pacientesStringList;
 
 	// JRR: EJB layer is not replicated in the test
 //	@EJB(name="ejb/CDP/PacienteManager") PacienteManager pacienteManager;
@@ -63,15 +56,6 @@ public class SearchController implements Serializable {
 		return list;
 	}
 	
-	public List<String> completePacienteString(String query) {
-		
-		String lowercaseQuery = query.toLowerCase();
-		return getPacientesStringList()
-				.stream()
-				.filter(p -> p.toLowerCase().contains(lowercaseQuery))
-				.collect(Collectors.toList());
-	}
-	
 	public void selectPaciente(SelectEvent<Paciente> event) {
 		log.info("Select Paciente - with event [" + event.getObject().getNombreCompleto() + "]");
 		
@@ -84,13 +68,6 @@ public class SearchController implements Serializable {
 */
 	}
 	
-	public void selectPacienteString(SelectEvent<String> event) {
-		
-		log.info("Selected Paciente String: " + selectedPacienteString);
-		String p = event.getObject();
-		log.info("detalle-paciente?faces-redirect=true&paciente=" + p);
-	}
-	
 	public void showPacienteSelected() {
 		
 		if (selectedPaciente != null) {
@@ -98,11 +75,6 @@ public class SearchController implements Serializable {
 		} else {
 			log.warning("No paciente is selected!!");
 		}
-	}
-	
-	public void clean() {
-		
-		selectedPaciente = null;
 	}
 	
 	
@@ -118,23 +90,6 @@ public class SearchController implements Serializable {
 			pacientesList = pacienteManager.getPacientesList();
 		}
 		return pacientesList;
-	}
-	
-	public String getSelectedPacienteString() {
-		return selectedPacienteString;
-	}
-	public void setSelectedPacienteString(String selectedPacienteString) {
-		this.selectedPacienteString = selectedPacienteString;
-	}
-	
-	private List<String> getPacientesStringList() {
-		if (pacientesStringList == null) {
-			pacientesStringList = new ArrayList<String>();
-			for (Paciente p: getPacientesList()) {
-				pacientesStringList.add(p.getNombreCompleto());
-			}
-		}
-		return pacientesStringList;
 	}
 	
 }

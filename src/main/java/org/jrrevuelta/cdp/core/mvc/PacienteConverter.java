@@ -15,6 +15,7 @@ import org.jrrevuelta.cdp.core.model.Paciente;
 @FacesConverter(value="pacienteConverter", managed=true)
 public class PacienteConverter implements Converter<Paciente> {
 
+	// JRR: EJB layer is not replicated in the test
 //	@EJB(name="ejb/CDP/PacienteManager") PacienteManager pacienteManager;
 	@Inject PacienteManager pacienteManager;
 
@@ -33,7 +34,7 @@ public class PacienteConverter implements Converter<Paciente> {
 			int id = Integer.parseInt(pacienteId);
 			Paciente p = pacienteManager.getPaciente(id);
 			if (p != null) {
-				log.info("...To Paciente: [" + p.getNombre() + " " + p.getApellidos() + "]");
+				log.info("...To Paciente: [" + p.getNombreCompleto() + "]");
 			}
 			return p;
 		} else {
