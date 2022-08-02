@@ -26,11 +26,10 @@
                 minQueryLength="3"
                 maxResults="15"
                 cache="true"
-                required="true"
                 forceSelection="true">
               <p:ajax event="itemSelect" listener="#{search.selectPaciente}"/>
             </p:autoComplete>
-            <p:commandButton value="Go" action="#{search.selectedPaciente}"/>
+            <p:commandButton value="Go" action="#{search.showPacienteSelected}"/>
           </div>
         </h:form>
 

@@ -75,7 +75,7 @@ public class SearchController implements Serializable {
 	public void selectPaciente(SelectEvent<Paciente> event) {
 		log.info("Select Paciente - with event [" + event.getObject().getNombreCompleto() + "]");
 		
-		pacienteSelected();
+		showPacienteSelected();
 /*		
 		Paciente p = event.getObject();
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -91,7 +91,7 @@ public class SearchController implements Serializable {
 		log.info("detalle-paciente?faces-redirect=true&paciente=" + p);
 	}
 	
-	public void pacienteSelected() {
+	public void showPacienteSelected() {
 		
 		if (selectedPaciente != null) {
 			log.info("Paciente selected [" + selectedPaciente.getId() + "] - [" + selectedPaciente.getNombreCompleto() + "]");
