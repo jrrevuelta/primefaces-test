@@ -12,9 +12,26 @@
     </h:head>
     <h:body>
 
-        <h1>#{testView.string}</h1>
+        <h1>Hello World!</h1>
         <h:form id="frmTest">
-            
+          <div class="flex">
+            <p:autoComplete 
+                id="searchPaciente" 
+                value="#{search.selectedPaciente}" 
+                completeMethod="#{search.completePaciente}"
+                converter="#{pacienteConverter}"
+                var="paciente"
+                itemLabel="#{paciente.nombreCompleto}"
+                itemValue="#{paciente}"
+                minQueryLength="3"
+                maxResults="15"
+                cache="true"
+                required="true"
+                forceSelection="true">
+              <p:ajax event="itemSelect" listener="#{search.selectPaciente}"/>
+            </p:autoComplete>
+            <p:commandButton value="Go" action="#{search.selectedPaciente}"/>
+          </div>
         </h:form>
 
     </h:body>
